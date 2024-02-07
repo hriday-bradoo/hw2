@@ -270,6 +270,14 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
+movies = Movie.includes(:studio).all
+for zebra in movies
+    title = zebra["title"].ljust(25)
+    year = zebra["year_released"]
+    rated = zebra["rated"].ljust(5)
+    studio = zebra.studio["name"]
+    puts "#{title} #{year} #{rated} #{studio}"
+end
 
 # Prints a header for the cast output
 puts ""
@@ -279,3 +287,10 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+roles = Role.includes(:actor).includes(:movie).all
+for zebra in roles
+    movie = zebra.movie["title"].ljust(25)
+    actor = zebra.actor["name"].ljust(25)
+    role = zebra["character_name"].ljust(5)
+    puts "#{movie} #{actor} #{role}"
+end
